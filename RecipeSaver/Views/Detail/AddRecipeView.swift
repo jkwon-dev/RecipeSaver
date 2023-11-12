@@ -15,6 +15,8 @@ struct AddRecipeView: View {
     @State private var directions: String = ""
     @State private var navigateToRecipe = false
     
+    @EnvironmentObject var recipesVM: RecipesViewModel
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -54,7 +56,7 @@ struct AddRecipeView: View {
                 
                 ToolbarItem() {
                     NavigationLink(isActive: $navigateToRecipe) {
-                        RecipeView(recipe: Recipe.all.sorted{ $0.datePublished > $1.datePublished }[0])
+                        RecipeView(recipe: recipesVM.recipes.sorted{ $0.datePublished > $1.datePublished }[0])
                             .navigationBarBackButtonHidden(true)
                     } label: {
                         Button {
@@ -76,4 +78,5 @@ struct AddRecipeView: View {
 
 #Preview {
     AddRecipeView()
+        .environmentObject(RecipesViewModel())
 }

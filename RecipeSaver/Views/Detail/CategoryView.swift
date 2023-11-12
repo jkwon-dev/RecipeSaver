@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct CategoryView: View {
+    @EnvironmentObject var recipesVM: RecipesViewModel
     var category: Category
     
     //Computed property
     var recipes: [Recipe] {
-        return Recipe.all.filter{ $0.category == category.rawValue}
+        return recipesVM.recipes.filter{ $0.category == category.rawValue}
     }
     
     var body: some View {
@@ -25,4 +26,5 @@ struct CategoryView: View {
 
 #Preview {
     CategoryView(category: Category.dessert)
+        .environmentObject(RecipesViewModel())
 }
